@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Outlet } from 'react-router-dom';
+import { GlobalStyle } from './styles/global';
+import NavBar from './components/NavBar';
+import ProtectedRoute from './components/ProtectedRoute';
+import Dashboard from './pages/Dashboard';
+import Patients from './pages/Patients';
+import Appointments from './pages/Appointments';
+import Login from './pages/Login';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App(){
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React + Rodrigo</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Fucking count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <GlobalStyle />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="patients" element={<Patients />} />
+          <Route path="appointments" element={<Appointments />} />
+        </Route>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+function Layout(){
+  return (
+    <div>
+      <NavBar />
+      <Outlet />
+    </div>
+  );
+}
