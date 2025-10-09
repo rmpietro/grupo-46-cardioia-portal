@@ -68,7 +68,7 @@ A aplicação utiliza **dados simulados** (sem back-end real), **Context API** p
 │  └─ main.(tsx|jsx)
 ├─ index.html               # entrada Vite
 ├─ package.json
-├─ tsconfig.json            # apenas na variante TypeScript
+├─ tsconfig.json            
 └─ README.md
 ```
 
